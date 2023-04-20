@@ -6,7 +6,7 @@ import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import {theme} from './theme';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -58,11 +58,12 @@ table {
 	box-sizing: border-box;
 }
 body{
-  font-weight: 300;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Poppins', sans-serif;  
   line-height: 1.2;
   width: 100vw;
   height: 100vh;
+  background-color: ${(props) => props.theme.white.darker};
+  letter-spacing: .2px;
 }
 a{
 	text-decoration: none;
