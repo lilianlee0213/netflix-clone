@@ -8,7 +8,7 @@ const Nav = styled.nav`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px 40px;
+	padding: 15px 30px;
 	width: 100%;
 	font-size: 14px;
 	color: ${(props) => props.theme.white.darker};
@@ -19,6 +19,7 @@ const Col = styled.div`
 	align-items: center;
 `;
 const Logo = styled.svg`
+	padding-top: 10px;
 	margin-right: 50px;
 	height: 100%;
 	fill: ${(props) => props.theme.red};
@@ -64,12 +65,13 @@ const Search = styled(motion.span)`
 	}
 `;
 const Input = styled(motion.input)`
-	line-height: 16px;
-	padding: 8px 4px 8px 40px;
-	border: 2px solid ${(props) => props.theme.white.darker};
+	width: 275px;
+	padding: 8px 8px 8px 40px;
+	border: 1.5px solid ${(props) => props.theme.white.lighter};
 	color: ${(props) => props.theme.white.darker};
 	background-color: transparent;
 	transform-origin: right center;
+	font-size: 14px;
 `;
 function Header() {
 	const [searchOpen, setSearchOpen] = useState(false);
@@ -112,7 +114,7 @@ function Header() {
 					/>
 					<motion.svg
 						onClick={openSearch}
-						animate={{x: searchOpen ? -160 : 0}}
+						animate={{x: searchOpen ? -240 : 0}}
 						transition={{type: 'linear'}}
 						width="24"
 						height="24"

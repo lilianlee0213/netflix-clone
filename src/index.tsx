@@ -6,7 +6,6 @@ import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import {theme} from './theme';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -58,7 +57,7 @@ table {
 	box-sizing: border-box;
 }
 body{
-  font-family: 'Poppins', sans-serif;  
+  font-family: 'Montserrat', sans-serif;  
   line-height: 1.2;
   width: 100vw;
   height: 100vh;
@@ -70,8 +69,10 @@ a{
   color:inherit;
 }
 input{
+  font-family: 'Montserrat', sans-serif;    
   outline: none;
-  
+
+
 }
 `;
 const root = ReactDOM.createRoot(
