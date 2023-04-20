@@ -69,6 +69,10 @@ a{
 	text-decoration: none;
   color:inherit;
 }
+input{
+  outline: none;
+  
+}
 `;
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement

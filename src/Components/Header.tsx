@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 import {Link, useMatch} from 'react-router-dom';
+import {useState} from 'react';
 const Nav = styled.nav`
 	position: fixed;
 	top: 0;
@@ -39,7 +40,7 @@ const Item = styled.li`
 		color: ${(props) => props.theme.white.lighter};
 	}
 `;
-const Circle = styled.span`
+const Circle = styled(motion.span)`
 	position: absolute;
 	top: -8px;
 	left: 0;
@@ -50,16 +51,31 @@ const Circle = styled.span`
 	border-radius: 50%;
 	background-color: ${(props) => props.theme.red};
 `;
-const Search = styled.span`
-	color: ${(props) => props.theme.white.darker};
+const Search = styled(motion.span)`
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 20px;
 	svg {
+		position: absolute;
 		height: 25px;
+		cursor: pointer;
 	}
 `;
-
+const Input = styled(motion.input)`
+	line-height: 16px;
+	padding: 8px 4px 8px 40px;
+	border: 2px solid ${(props) => props.theme.white.darker};
+	color: ${(props) => props.theme.white.darker};
+	background-color: transparent;
+	transform-origin: right center;
+`;
 function Header() {
+	const [searchOpen, setSearchOpen] = useState(false);
 	const homeMatch = useMatch('/');
 	const tvMatch = useMatch('tv');
+	const openSearch = () => setSearchOpen((prev) => !prev);
 	return (
 		<Nav>
 			<Col>
@@ -75,13 +91,13 @@ function Header() {
 				<Items>
 					<Item>
 						<Link to="/">
-							{homeMatch && <Circle />}
+							{homeMatch && <Circle layoutId="circle" />}
 							Home
 						</Link>
 					</Item>
 					<Item>
 						<Link to="tv">
-							{tvMatch && <Circle />}
+							{tvMatch && <Circle layoutId="circle" />}
 							TV Shows
 						</Link>
 					</Item>
@@ -89,7 +105,15 @@ function Header() {
 			</Col>
 			<Col>
 				<Search>
-					<svg
+					<Input
+						animate={{scaleX: searchOpen ? 1 : 0}}
+						transition={{type: 'linear'}}
+						placeholder="Titles, people, genres"
+					/>
+					<motion.svg
+						onClick={openSearch}
+						animate={{x: searchOpen ? -160 : 0}}
+						transition={{type: 'linear'}}
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
@@ -97,11 +121,12 @@ function Header() {
 						xmlns="http://www.w3.org/2000/svg"
 						data-name="Search">
 						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
+							fillRule="evenodd"
+							clipRule="evenodd"
 							d="M14 11C14 14.3137 11.3137 17 8 17C4.68629 17 2 14.3137 2 11C2 7.68629 4.68629 5 8 5C11.3137 5 14 7.68629 14 11ZM14.3623 15.8506C12.9006 17.7649 10.5945 19 8 19C3.58172 19 0 15.4183 0 11C0 6.58172 3.58172 3 8 3C12.4183 3 16 6.58172 16 11C16 12.1076 15.7749 13.1626 15.368 14.1218L24.0022 19.1352L22.9979 20.8648L14.3623 15.8506Z"
-							fill="currentColor"></path>
-					</svg>
+							fill="currentColor"
+						/>
+					</motion.svg>
 				</Search>
 			</Col>
 		</Nav>
