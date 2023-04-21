@@ -14,7 +14,7 @@ const Nav = styled(motion.nav)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 15px 30px;
+	padding: 15px 60px;
 	width: 100%;
 	font-size: 14px;
 	color: ${(props) => props.theme.white.darker};
