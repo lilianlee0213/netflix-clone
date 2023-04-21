@@ -97,16 +97,18 @@ function Header() {
 	const [searchOpen, setSearchOpen] = useState(false);
 	const toggleSearch = () => setSearchOpen((prev) => !prev);
 	useMotionValueEvent(scrollY, 'change', (latest) => {
-		if (latest > 100) {
+		if (latest > 10) {
 			navAnimation.start({
-				backgroundColor: 'rgba(0,0,0,1)',
+				backgroundColor: 'rgba(24, 24, 24,1)',
 			});
 		} else {
-			navAnimation.start({backgroundColor: 'rgba(0,0,0,0)'});
+			navAnimation.start({backgroundColor: 'rgba(24, 24, 24,0)'});
 		}
 	});
 	return (
-		<Nav initial={{backgroundColor: 'rgba(0,0,0,0)'}} animate={navAnimation}>
+		<Nav
+			initial={{backgroundColor: 'rgba(24, 24, 24,0)'}}
+			animate={navAnimation}>
 			<Col>
 				<Link to="/">
 					<Logo
