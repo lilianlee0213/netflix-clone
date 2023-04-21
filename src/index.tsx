@@ -60,7 +60,7 @@ body{
   font-family: 'Montserrat', sans-serif;  
   line-height: 1.2;
   width: 100vw;
-  height: 100vh;
+  height: 150vh;
   background-color: ${(props) => props.theme.white.darker};
   letter-spacing: .2px;
 }

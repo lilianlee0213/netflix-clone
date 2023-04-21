@@ -1,8 +1,14 @@
 import styled from 'styled-components';
-import {motion} from 'framer-motion';
+import {
+	motion,
+	useAnimation,
+	useMotionValueEvent,
+	useScroll,
+} from 'framer-motion';
 import {Link, useMatch} from 'react-router-dom';
 import {useState} from 'react';
-const Nav = styled.nav`
+
+const Nav = styled(motion.nav)`
 	position: fixed;
 	top: 0;
 	display: flex;
@@ -12,7 +18,6 @@ const Nav = styled.nav`
 	width: 100%;
 	font-size: 14px;
 	color: ${(props) => props.theme.white.darker};
-	background-color: ${(props) => props.theme.black.veryDark};
 `;
 const Col = styled.div`
 	display: flex;
@@ -35,24 +40,32 @@ const Item = styled.li`
 	display: flex;
 	justify-content: center;
 	margin-right: 20px;
+	font-weight: 300;
 	color: ${(props) => props.theme.white.darker};
-	transition: color 0.3s ease-in-out;
-	&:hover {
-		color: ${(props) => props.theme.white.lighter};
+	a {
+		opacity: 0.5;
+		transition: opacity 0.3s ease-in-out;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+	.active {
+		opacity: 1;
 	}
 `;
-const Circle = styled(motion.span)`
-	position: absolute;
-	top: -8px;
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-	width: 5px;
-	height: 5px;
-	border-radius: 50%;
-	background-color: ${(props) => props.theme.red};
-`;
-const Search = styled(motion.span)`
+// const Circle = styled(motion.span)`
+// 	position: absolute;
+// 	top: -8px;
+// 	left: 0;
+// 	right: 0;
+// 	margin: 0 auto;
+// 	width: 5px;
+// 	height: 5px;
+// 	border-radius: 50%;
+// 	background-color: ${(props) => props.theme.red};
+// `;
+const Search = styled.span`
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
@@ -73,13 +86,27 @@ const Input = styled(motion.input)`
 	transform-origin: right center;
 	font-size: 14px;
 `;
+
 function Header() {
-	const [searchOpen, setSearchOpen] = useState(false);
 	const homeMatch = useMatch('/');
 	const tvMatch = useMatch('tv');
-	const openSearch = () => setSearchOpen((prev) => !prev);
+	// Scroll Event
+	const {scrollY} = useScroll();
+	const navAnimation = useAnimation();
+	// Search
+	const [searchOpen, setSearchOpen] = useState(false);
+	const toggleSearch = () => setSearchOpen((prev) => !prev);
+	useMotionValueEvent(scrollY, 'change', (latest) => {
+		if (latest > 100) {
+			navAnimation.start({
+				backgroundColor: 'rgba(0,0,0,1)',
+			});
+		} else {
+			navAnimation.start({backgroundColor: 'rgba(0,0,0,0)'});
+		}
+	});
 	return (
-		<Nav>
+		<Nav initial={{backgroundColor: 'rgba(0,0,0,0)'}} animate={navAnimation}>
 			<Col>
 				<Link to="/">
 					<Logo
@@ -92,14 +119,12 @@ function Header() {
 				</Link>
 				<Items>
 					<Item>
-						<Link to="/">
-							{homeMatch && <Circle layoutId="circle" />}
+						<Link to="/" className={Boolean(homeMatch) ? 'active' : ''}>
 							Home
 						</Link>
 					</Item>
 					<Item>
-						<Link to="tv">
-							{tvMatch && <Circle layoutId="circle" />}
+						<Link to="tv" className={Boolean(tvMatch) ? 'active' : ''}>
 							TV Shows
 						</Link>
 					</Item>
@@ -108,20 +133,20 @@ function Header() {
 			<Col>
 				<Search>
 					<Input
+						initial={{scaleX: 0}}
 						animate={{scaleX: searchOpen ? 1 : 0}}
 						transition={{type: 'linear'}}
 						placeholder="Titles, people, genres"
 					/>
 					<motion.svg
-						onClick={openSearch}
+						onClick={toggleSearch}
 						animate={{x: searchOpen ? -240 : 0}}
 						transition={{type: 'linear'}}
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
 						fill="currentColor"
-						xmlns="http://www.w3.org/2000/svg"
-						data-name="Search">
+						xmlns="http://www.w3.org/2000/svg">
 						<path
 							fillRule="evenodd"
 							clipRule="evenodd"
