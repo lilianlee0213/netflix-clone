@@ -54,17 +54,7 @@ const Item = styled.li`
 		opacity: 1;
 	}
 `;
-// const Circle = styled(motion.span)`
-// 	position: absolute;
-// 	top: -8px;
-// 	left: 0;
-// 	right: 0;
-// 	margin: 0 auto;
-// 	width: 5px;
-// 	height: 5px;
-// 	border-radius: 50%;
-// 	background-color: ${(props) => props.theme.red};
-// `;
+
 const Search = styled.span`
 	position: relative;
 	display: flex;
