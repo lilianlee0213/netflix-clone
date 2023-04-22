@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {makeImagePath} from '../utils';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useState} from 'react';
+import {type} from 'os';
 const Wrapper = styled.div`
 	background-color: ${(props) => props.theme.black.darker};
 `;
@@ -83,6 +84,20 @@ const Box = styled(motion.div)<{$bgPhoto: string}>`
 	background-image: url(${(props) => props.$bgPhoto});
 	background-size: cover;
 	background-position: center;
+	&:first-child {
+		transform-origin: center left;
+	}
+	&:last-child {
+		transform-origin: center right;
+	}
+`;
+const Info = styled(motion.div)`
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	opacity: 0;
+	padding: 20px;
+	background-color: ${(props) => props.theme.black.lighter};
 `;
 const rowVariants = {
 	hidden: {
@@ -95,8 +110,32 @@ const rowVariants = {
 		x: -window.outerWidth - 10,
 	},
 };
-
+const boxVariants = {
+	normal: {
+		scale: 1,
+	},
+	hover: {
+		y: -20,
+		scale: 1.3,
+		transition: {
+			duration: 0.2,
+			delay: 0.3,
+			type: 'tween',
+		},
+	},
+};
+const infoVariants = {
+	hover: {
+		opacity: 1,
+		transition: {
+			duration: 0.2,
+			delay: 0.3,
+			type: 'tween',
+		},
+	},
+};
 const offset = 6;
+
 function Home() {
 	const {data, isLoading} = useQuery<IGetMoviesResult>(
 		['movies', 'nowPlaying'],
@@ -169,7 +208,16 @@ function Home() {
 								.map((movie) => (
 									<Box
 										key={movie.id}
-										$bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}></Box>
+										variants={boxVariants}
+										initial="normal"
+										whileHover="hover"
+										transition={{type: 'tween'}}
+										$bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}>
+										<img src="" alt="" />
+										<Info variants={infoVariants}>
+											<h4>{movie.title}</h4>
+										</Info>
+									</Box>
 								))}
 						</Row>
 					</AnimatePresence>
