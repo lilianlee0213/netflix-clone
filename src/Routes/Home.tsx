@@ -75,6 +75,12 @@ const Slider = styled.div`
 	position: relative;
 	top: -100px;
 `;
+const SlideTitle = styled.h3`
+	margin-bottom: 15px;
+	padding-left: 60px;
+	font-size: 25px;
+	font-weight: 500;
+`;
 const Row = styled(motion.div)`
 	position: absolute;
 	display: grid;
@@ -250,8 +256,6 @@ function Home() {
 		movies?.results.find(
 			(movie) => movie.id + '' === bigMovieMatch.params.movieId
 		);
-	console.log(clickedMovie);
-
 	return (
 		<Wrapper>
 			{isLoading ? <Loader>Loading...</Loader> : null}
@@ -293,6 +297,7 @@ function Home() {
 					<Overview>{movies?.results[0].overview}</Overview>
 				</Banner>
 				<Slider>
+					<SlideTitle>Now Playing</SlideTitle>
 					<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
 						<Row
 							key={index}
