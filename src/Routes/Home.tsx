@@ -20,7 +20,12 @@ const Banner = styled.div<{$bgPhoto: string}>`
 	justify-content: center;
 	height: 100vh;
 	padding: 60px;
-	background-image: linear-gradient(rgba(24, 24, 24, 0), rgba(24, 24, 24, 0.5)),
+	background-image: linear-gradient(
+			to bottom,
+			rgba(24, 24, 24, 0),
+			rgba(24, 24, 24, 0.2),
+			rgba(24, 24, 24, 0.9)
+		),
 		url(${(props) => props.$bgPhoto});
 	background-size: cover;
 `;
@@ -301,8 +306,7 @@ function Home() {
 										initial="normal"
 										whileHover="hover"
 										transition={{type: 'tween'}}
-										$bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
-										onClick={() => onBoxClicked(movie.id)}>
+										$bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}>
 										<Info variants={infoVariants}>
 											<ModalBtns>
 												<div>
@@ -326,7 +330,7 @@ function Home() {
 													</ModalBtn>
 												</div>
 												<div>
-													<ModalBtn>
+													<ModalBtn onClick={() => onBoxClicked(movie.id)}>
 														<i className="fa-solid fa-arrow-down"></i>
 													</ModalBtn>
 												</div>
