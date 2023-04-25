@@ -141,11 +141,23 @@ const ModalBtn = styled.button`
 	border: 1px solid rgba(255, 255, 255, 0.5);
 	border-radius: 50%;
 	background-color: transparent;
-	:first-child {
+	&:first-child {
 		background-color: white;
+		:hover {
+			background-color: rgba(255, 255, 255, 0.8);
+		}
 	}
-	:last-child {
+	&:nth-child(2) {
+		&:hover {
+			border-color: white;
+		}
+	}
+	&:last-child {
 		background-color: transparent;
+		:hover {
+			background-color: transparent;
+			border-color: white;
+		}
 	}
 	i {
 		font-size: 18px;
@@ -190,8 +202,12 @@ const boxVariants = {
 	},
 };
 const infoVariants = {
+	normal: {
+		display: 'none',
+	},
 	hover: {
 		opacity: 1,
+		display: 'block',
 		transition: {
 			duration: 0.2,
 			delay: 0.3,
