@@ -4,6 +4,7 @@ import {
 	getNowPlaying,
 	getTopRated,
 	getUpcoming,
+	getPopularTV,
 } from '../api';
 import styled from 'styled-components';
 import {makeImagePath} from '../utils';
@@ -107,6 +108,10 @@ function Home() {
 		['movies', 'topRated'],
 		getTopRated
 	);
+	const {data: popular} = useQuery<IGetMoviesResult>(
+		['TVshows', 'popular'],
+		getPopularTV
+	);
 	const onOverlayClick = () => navigate('/');
 	const clickedMovie =
 		bigMovieMatch?.params.movieId &&
@@ -160,6 +165,9 @@ function Home() {
 				</Slider>
 				<Slider>
 					<Slide data={topRated as IGetMoviesResult} title="Top Rated" />
+				</Slider>
+				<Slider>
+					<Slide data={popular as IGetMoviesResult} title="Popular TV Shows" />
 				</Slider>
 				<AnimatePresence>
 					{bigMovieMatch ? (

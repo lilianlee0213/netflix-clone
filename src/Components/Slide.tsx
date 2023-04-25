@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
-import {makeImagePath} from '../utils';
+import {makeImagePath, netflixLogoUrl} from '../utils';
 import {title} from 'process';
 
 interface ISlider {
@@ -195,7 +195,11 @@ export default function Slide({data, title}: ISlider) {
 								initial="normal"
 								whileHover="hover"
 								transition={{type: 'tween'}}
-								$bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}>
+								$bgPhoto={
+									movie.backdrop_path
+										? makeImagePath(movie.backdrop_path, 'w500')
+										: netflixLogoUrl
+								}>
 								<Info variants={infoVariants}>
 									<ModalBtns>
 										<div>
@@ -224,7 +228,7 @@ export default function Slide({data, title}: ISlider) {
 											</ModalBtn>
 										</div>
 									</ModalBtns>
-									<h4>{movie.title}</h4>
+									<h4>{movie.title ? movie.title : movie.name}</h4>
 									<h4>
 										{genre?.genres.map((i: IGenre) =>
 											movie.genre_ids.slice(0, 3).includes(i.id) ? (
