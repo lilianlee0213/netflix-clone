@@ -1,16 +1,14 @@
 import {useQuery} from 'react-query';
 import {
-	IGenre,
 	IGetMoviesResult,
-	getGenres,
 	getNowPlaying,
+	getTopRated,
 	getUpcoming,
 } from '../api';
 import styled from 'styled-components';
 import {makeImagePath} from '../utils';
 import {AnimatePresence, motion} from 'framer-motion';
-import {useState} from 'react';
-import {useMatch, useNavigate, useOutlet} from 'react-router-dom';
+import {useMatch, useNavigate} from 'react-router-dom';
 import Slide from '../Components/Slide';
 const Wrapper = styled.div`
 	background-color: ${(props) => props.theme.black.darker};
@@ -101,8 +99,14 @@ function Home() {
 		['movies', 'nowPlaying'],
 		getNowPlaying
 	);
-	const {data: upcoming, isLoading: upcomingLoading} =
-		useQuery<IGetMoviesResult>(['movies', 'upcoming'], getUpcoming);
+	const {data: upcoming} = useQuery<IGetMoviesResult>(
+		['movies', 'upcoming'],
+		getUpcoming
+	);
+	const {data: topRated} = useQuery<IGetMoviesResult>(
+		['movies', 'topRated'],
+		getTopRated
+	);
 	const onOverlayClick = () => navigate('/');
 	const clickedMovie =
 		bigMovieMatch?.params.movieId &&
@@ -153,6 +157,9 @@ function Home() {
 				</Slider>
 				<Slider>
 					<Slide data={upcoming as IGetMoviesResult} title="Upcoming" />
+				</Slider>
+				<Slider>
+					<Slide data={topRated as IGetMoviesResult} title="Top Rated" />
 				</Slider>
 				<AnimatePresence>
 					{bigMovieMatch ? (
