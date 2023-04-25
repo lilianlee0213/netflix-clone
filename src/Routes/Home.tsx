@@ -245,6 +245,12 @@ function Home() {
 		navigate(`/movies/${movieId}`);
 	};
 	const onOverlayClick = () => navigate('/');
+	const clickedMovie =
+		bigMovieMatch?.params.movieId &&
+		movies?.results.find(
+			(movie) => movie.id + '' === bigMovieMatch.params.movieId
+		);
+	console.log(clickedMovie);
 
 	return (
 		<Wrapper>
@@ -335,12 +341,11 @@ function Home() {
 													</ModalBtn>
 												</div>
 											</ModalBtns>
-
 											<h4>{movie.title}</h4>
 											<h4>
 												{data?.genres.map((i: IGenre) =>
 													movie.genre_ids.slice(0, 3).includes(i.id) ? (
-														<span>{i.name}</span>
+														<span key={i.id}>{i.name}</span>
 													) : null
 												)}
 											</h4>
@@ -364,8 +369,19 @@ function Home() {
 									left: '0',
 									margin: ' 0 auto',
 									right: '0',
-									backgroundColor: 'white',
-								}}></motion.div>
+									backgroundColor: 'black',
+								}}>
+								{clickedMovie && (
+									<>
+										<img
+											src={makeImagePath(clickedMovie.backdrop_path, 'w500')}
+											alt=""
+										/>
+										<h2>{clickedMovie.title}</h2>
+										<p>{clickedMovie.overview}</p>
+									</>
+								)}
+							</motion.div>
 						</>
 					) : null}
 				</AnimatePresence>
