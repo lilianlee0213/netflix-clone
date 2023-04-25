@@ -75,7 +75,14 @@ input{
   font-family: 'Montserrat', sans-serif;    
   outline: none;
 
-
+}
+button{
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+i{
+  cursor: pointer;
 }
 `;
 const client = new QueryClient();
