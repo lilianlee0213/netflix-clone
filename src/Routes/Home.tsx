@@ -70,8 +70,8 @@ const Overview = styled.p`
 // Slide
 const Slider = styled.div`
 	position: relative;
-	top: -100px;
-	margin-bottom: 250px;
+	top: -120px;
+	margin-bottom: 220px;
 `;
 
 const Overlay = styled(motion.div)`
@@ -85,8 +85,10 @@ const Overlay = styled(motion.div)`
 
 function Home() {
 	const navigate = useNavigate();
-
 	const bigMovieMatch = useMatch('/movies/:movieId');
+	const onBoxClicked = (movieId: number) => {
+		navigate(`/movies/${movieId}`);
+	};
 	const {data: nowPlaying, isLoading} = useQuery<IGetMoviesResult>(
 		['movies', 'nowPlaying'],
 		getNowPlaying
@@ -131,7 +133,9 @@ function Home() {
 							</svg>
 							Play
 						</BannerBtn>
-						<BannerBtn className="lightBtn">
+						<BannerBtn
+							className="lightBtn"
+							onClick={() => onBoxClicked(nowPlaying?.results[0].id as number)}>
 							<svg
 								width="24"
 								height="24"

@@ -24,6 +24,7 @@ const Row = styled(motion.div)`
 	gap: 10px;
 	width: 100%;
 	padding: 0 60px;
+	margin-bottom: 250px;
 `;
 // Modal
 const Box = styled(motion.div)<{$bgPhoto: string}>`
@@ -90,6 +91,19 @@ const Button = styled.button`
 	}
 `;
 
+const NextBtn = styled(motion.button)`
+	position: absolute;
+	background-color: transparent;
+	width: 60px;
+	height: 163px;
+	right: 10px;
+	background-color: rgba(21, 21, 21, 0.4);
+
+	i {
+		color: ${(props) => props.theme.white.darker};
+		font-size: 30px;
+	}
+`;
 const rowVariants = {
 	hidden: {
 		x: window.outerWidth + 10,
@@ -131,6 +145,7 @@ const infoVariants = {
 		},
 	},
 };
+
 const offset = 6;
 export default function Slide({data, title}: ISlider) {
 	const navigate = useNavigate();
@@ -152,7 +167,7 @@ export default function Slide({data, title}: ISlider) {
 	};
 	return (
 		<>
-			<Title onClick={moveNext}>{title}</Title>
+			<Title>{title}</Title>
 			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
 				<Row
 					key={index}
@@ -166,6 +181,7 @@ export default function Slide({data, title}: ISlider) {
 						.slice(offset * index, offset * index + offset)
 						.map((movie) => (
 							<Box
+								// layoutId={movie.id + ''}
 								key={movie.id}
 								variants={boxVariants}
 								initial="normal"
@@ -217,6 +233,16 @@ export default function Slide({data, title}: ISlider) {
 						))}
 				</Row>
 			</AnimatePresence>
+			<NextBtn
+				onClick={moveNext}
+				whileHover={{
+					backgroundColor: 'rgba(21, 21, 21, 0.7)',
+				}}>
+				<motion.i
+					className="fa-solid fa-chevron-right"
+					whileHover={{scale: 1.3}}
+				/>
+			</NextBtn>
 		</>
 	);
 }

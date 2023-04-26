@@ -61,7 +61,7 @@ body{
   font-family: 'Montserrat', sans-serif;  
   line-height: 1.2;
   width: 100vw;
-  height: 300vh;
+  height: 100vh;
   overflow-x: hidden;
   color: ${(props) => props.theme.white.darker};
   background-color: ${(props) => props.theme.black.darker};
