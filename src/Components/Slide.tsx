@@ -5,6 +5,7 @@ import {useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {makeImagePath, netflixLogoUrl} from '../utils';
+import {IconBtn} from '../commonstyles';
 
 interface ISlider {
 	data: IGetMoviesResult;
@@ -80,37 +81,12 @@ const Buttons = styled.div`
 	margin-bottom: 10px;
 `;
 const Button = styled.button`
-	margin-right: 5px;
-	width: 35px;
-	height: 35px;
-	vertical-align: middle;
-	border: 1px solid rgba(255, 255, 255, 0.5);
-	border-radius: 50%;
-	background-color: transparent;
-	&:first-child {
+	${IconBtn}
+	&.playIcon {
 		background-color: white;
 		:hover {
 			background-color: rgba(255, 255, 255, 0.8);
 		}
-	}
-	&:nth-child(2) {
-		&:hover {
-			border-color: white;
-		}
-	}
-	&:last-child {
-		background-color: transparent;
-		:hover {
-			background-color: transparent;
-			border-color: white;
-		}
-	}
-	i {
-		font-size: 18px;
-		color: white;
-	}
-	svg {
-		vertical-align: middle;
 	}
 `;
 
@@ -204,7 +180,7 @@ export default function Slide({data, title}: ISlider) {
 								<Info variants={infoVariants}>
 									<Buttons>
 										<div>
-											<Button>
+											<Button className="playIcon">
 												<svg
 													width="19"
 													height="19"

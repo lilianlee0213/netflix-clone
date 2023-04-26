@@ -14,6 +14,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {useMatch, useNavigate} from 'react-router-dom';
 import Slide from '../Components/Slide';
 import Modals from '../Components/Modal';
+import {PlayBtn} from '../commonstyles';
 const Wrapper = styled.div`
 	background-color: ${(props) => props.theme.black.darker};
 `;
@@ -40,29 +41,18 @@ const Banner = styled.div<{$bgPhoto: string}>`
 `;
 const Title = styled.h2`
 	margin-bottom: 20px;
-	width: 30%;
-	font-family: 'Bebas Neue', cursive;
+	width: 40%;
+	font-family: 'Bangers', cursive;
 	font-size: 100px;
-	font-style: oblique;
+	letter-spacing: 5px;
 `;
 const BannerBtns = styled.div`
 	display: flex;
 	gap: 20px;
+	margin-bottom: 40px;
 `;
 const BannerBtn = styled.button`
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	margin-bottom: 40px;
-	padding: 12px 30px;
-	border: none;
-	border-radius: 6px;
-	font-size: 22px;
-	font-weight: 500;
-	background-color: rgba(255, 255, 255, 0.9);
-	:hover {
-		background-color: rgba(255, 255, 255, 0.7);
-	}
+	${PlayBtn}
 	i {
 		font-weight: 900;
 		font-size: 32px;
@@ -130,7 +120,7 @@ function Home() {
 					$bgPhoto={makeImagePath(nowPlaying?.results[0].backdrop_path || '')}>
 					<Title>{nowPlaying?.results[0].title}</Title>
 					<BannerBtns>
-						<BannerBtn>
+						<BannerBtn className="playBtn">
 							<svg
 								width="26"
 								height="26"
