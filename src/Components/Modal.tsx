@@ -66,7 +66,6 @@ const Icon = styled.button`
 `;
 const Info = styled.div`
 	padding: 25px 30px;
-
 	.date {
 		margin-right: 8px;
 		color: ${(props) => props.theme.green};
@@ -140,13 +139,12 @@ export default function Modals({movieId}: IModal) {
 			<Info>
 				<div>
 					<div style={{marginBottom: '10px'}}>
-						<span className="date">{details?.release_date.slice(0, 4)}</span>
+						<span className="date">{details?.release_date}</span>
 						<span>
 							{Math.floor(Number(details?.runtime) / 60)}hr{' '}
 							{Number(details?.runtime) % 60}min
 						</span>
 					</div>
-
 					<p className="genre">{details?.genres.map((i) => i.name + ' ')}</p>
 					<p className="overview">{details?.overview}</p>
 				</div>

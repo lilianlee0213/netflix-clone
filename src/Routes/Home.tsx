@@ -5,8 +5,6 @@ import {
 	getTopRated,
 	getUpcoming,
 	getPopularTV,
-	IDetails,
-	getDetails,
 } from '../api';
 import styled from 'styled-components';
 import {makeImagePath} from '../utils';
@@ -107,11 +105,11 @@ function Home() {
 	);
 
 	const onOverlayClick = () => navigate('/');
-	const clickedMovie =
-		bigMovieMatch?.params.movieId &&
-		nowPlaying?.results.find(
-			(movie) => movie.id + '' === bigMovieMatch.params.movieId
-		);
+	// const clickedMovie =
+	// 	bigMovieMatch?.params.movieId &&
+	// 	nowPlaying?.results.find(
+	// 		(movie) => movie.id + '' === bigMovieMatch.params.movieId
+	// 	);
 	return (
 		<Wrapper>
 			{isLoading ? <Loader>Loading...</Loader> : null}

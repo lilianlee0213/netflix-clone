@@ -166,7 +166,6 @@ export default function Slide({data, title}: ISlider) {
 						.slice(offset * index, offset * index + offset)
 						.map((movie) => (
 							<Box
-								layoutId={movie.id + ''}
 								key={movie.id}
 								variants={boxVariants}
 								initial="normal"
