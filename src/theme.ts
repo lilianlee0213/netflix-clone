@@ -4,8 +4,8 @@ export const theme: DefaultTheme = {
 	red: '#e51013',
 	black: {
 		veryDark: '#141414',
-		darker: '#181818',
-		lighter: '#2f2f2f',
+		darker: '#141414',
+		lighter: '#181818',
 	},
 	white: {
 		darker: '#fff',

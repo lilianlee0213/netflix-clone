@@ -18,6 +18,7 @@ const Nav = styled(motion.nav)`
 	width: 100%;
 	font-size: 14px;
 	color: ${(props) => props.theme.white.darker};
+	z-index: 2;
 `;
 const Col = styled.div`
 	display: flex;

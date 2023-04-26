@@ -5,13 +5,12 @@ import {useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {makeImagePath, netflixLogoUrl} from '../utils';
-import {title} from 'process';
 
 interface ISlider {
 	data: IGetMoviesResult;
 	title?: string;
 }
-const SlideTitle = styled.h3`
+const Title = styled.h3`
 	margin-bottom: 15px;
 	padding-left: 60px;
 	font-size: 25px;
@@ -74,13 +73,13 @@ const Info = styled(motion.div)`
 		}
 	}
 `;
-const ModalBtns = styled.div`
+const Buttons = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 10px;
 `;
-const ModalBtn = styled.button`
+const Button = styled.button`
 	margin-right: 5px;
 	width: 35px;
 	height: 35px;
@@ -129,8 +128,10 @@ const rowVariants = {
 const boxVariants = {
 	normal: {
 		scale: 1,
+		zIndex: 0,
 	},
 	hover: {
+		zIndex: 3,
 		y: -80,
 		scale: 1.4,
 		transition: {
@@ -175,7 +176,7 @@ export default function Slide({data, title}: ISlider) {
 	};
 	return (
 		<>
-			<SlideTitle onClick={moveNext}>{title}</SlideTitle>
+			<Title onClick={moveNext}>{title}</Title>
 			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
 				<Row
 					key={index}
@@ -201,9 +202,9 @@ export default function Slide({data, title}: ISlider) {
 										: netflixLogoUrl
 								}>
 								<Info variants={infoVariants}>
-									<ModalBtns>
+									<Buttons>
 										<div>
-											<ModalBtn>
+											<Button>
 												<svg
 													width="19"
 													height="19"
@@ -214,20 +215,20 @@ export default function Slide({data, title}: ISlider) {
 														d="M4 2.69127C4 1.93067 4.81547 1.44851 5.48192 1.81506L22.4069 11.1238C23.0977 11.5037 23.0977 12.4963 22.4069 12.8762L5.48192 22.1849C4.81546 22.5515 4 22.0693 4 21.3087V2.69127Z"
 														fill="currentColor"></path>
 												</svg>
-											</ModalBtn>
-											<ModalBtn>
+											</Button>
+											<Button>
 												<i className="fa-solid fa-plus"></i>
-											</ModalBtn>
-											<ModalBtn>
+											</Button>
+											<Button>
 												<i className="fa-regular fa-thumbs-up"></i>
-											</ModalBtn>
+											</Button>
 										</div>
 										<div>
-											<ModalBtn onClick={() => onBoxClicked(movie.id)}>
+											<Button onClick={() => onBoxClicked(movie.id)}>
 												<i className="fa-solid fa-arrow-down"></i>
-											</ModalBtn>
+											</Button>
 										</div>
-									</ModalBtns>
+									</Buttons>
 									<h4>{movie.title ? movie.title : movie.name}</h4>
 									<h4>
 										{genre?.genres.map((i: IGenre) =>

@@ -5,12 +5,15 @@ import {
 	getTopRated,
 	getUpcoming,
 	getPopularTV,
+	IDetails,
+	getDetails,
 } from '../api';
 import styled from 'styled-components';
 import {makeImagePath} from '../utils';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useMatch, useNavigate} from 'react-router-dom';
 import Slide from '../Components/Slide';
+import Modals from '../Components/Modal';
 const Wrapper = styled.div`
 	background-color: ${(props) => props.theme.black.darker};
 `;
@@ -112,6 +115,7 @@ function Home() {
 		['TVshows', 'popular'],
 		getPopularTV
 	);
+
 	const onOverlayClick = () => navigate('/');
 	const clickedMovie =
 		bigMovieMatch?.params.movieId &&
@@ -173,29 +177,7 @@ function Home() {
 					{bigMovieMatch ? (
 						<>
 							<Overlay onClick={onOverlayClick} animate={{opacity: 1}} />
-							<motion.div
-								// layoutId={bigMovieMatch.params.movieId}
-								style={{
-									position: 'fixed',
-									width: '40vw',
-									height: '80vh',
-									top: 100,
-									left: '0',
-									margin: ' 0 auto',
-									right: '0',
-									backgroundColor: 'black',
-								}}>
-								{clickedMovie && (
-									<>
-										<img
-											src={makeImagePath(clickedMovie.backdrop_path, 'w500')}
-											alt=""
-										/>
-										<h2>{clickedMovie.title}</h2>
-										<p>{clickedMovie.overview}</p>
-									</>
-								)}
-							</motion.div>
+							<Modals movieId={bigMovieMatch.params.movieId + ''}></Modals>
 						</>
 					) : null}
 				</AnimatePresence>
