@@ -1,10 +1,5 @@
 import {useQuery} from 'react-query';
-import {
-	IGetMoviesResult,
-	getNowPlaying,
-	getTopRated,
-	getUpcoming,
-} from '../api';
+import {IGetResult, getNowPlaying, getTopRated, getUpcoming} from '../api';
 import styled from 'styled-components';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useMatch, useNavigate} from 'react-router-dom';
@@ -39,15 +34,15 @@ const Overlay = styled(motion.div)`
 `;
 
 function Home() {
-	const {data: nowPlaying, isLoading} = useQuery<IGetMoviesResult>(
+	const {data: nowPlaying, isLoading} = useQuery<IGetResult>(
 		['movies', 'nowPlaying'],
 		getNowPlaying
 	);
-	const {data: upcoming} = useQuery<IGetMoviesResult>(
+	const {data: upcoming} = useQuery<IGetResult>(
 		['movies', 'upcoming'],
 		getUpcoming
 	);
-	const {data: topRated} = useQuery<IGetMoviesResult>(
+	const {data: topRated} = useQuery<IGetResult>(
 		['movies', 'topRated'],
 		getTopRated
 	);
@@ -60,27 +55,27 @@ function Home() {
 			<>
 				<Banner
 					mediaType="movie"
-					data={nowPlaying as IGetMoviesResult}
+					data={nowPlaying as IGetResult}
 					title="Now Playing"
 				/>
 				<Slider>
 					<Slide
 						mediaType="movie"
-						data={nowPlaying as IGetMoviesResult}
+						data={nowPlaying as IGetResult}
 						title="Now Playing"
 					/>
 				</Slider>
 				<Slider>
 					<Slide
 						mediaType="movie"
-						data={upcoming as IGetMoviesResult}
+						data={upcoming as IGetResult}
 						title="Upcoming"
 					/>
 				</Slider>
 				<Slider>
 					<Slide
 						mediaType="movie"
-						data={topRated as IGetMoviesResult}
+						data={topRated as IGetResult}
 						title="Top Rated"
 					/>
 				</Slider>

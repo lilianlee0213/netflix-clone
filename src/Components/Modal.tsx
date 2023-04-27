@@ -115,7 +115,7 @@ export default function Modals({mediaType, id}: IModal) {
 						: netflixLogoUrl
 				}
 			/>
-			<Title>{details?.title ? details.title : details?.name}</Title>
+			<Title>{details?.title ? details?.title : details?.name}</Title>
 			<Buttons>
 				<Button>
 					<svg
@@ -142,16 +142,21 @@ export default function Modals({mediaType, id}: IModal) {
 					<div style={{marginBottom: '10px'}}>
 						<span className="date">
 							{details?.release_date
-								? details.release_date
+								? details?.release_date
 								: details?.last_air_date}
 						</span>
 						<span>
-							{Math.floor(Number(details?.runtime) / 60)}hr{' '}
-							{Number(details?.runtime) % 60}min
+							{details?.runtime
+								? `${Math.floor(Number(details?.runtime) / 60)} hr ${
+										Number(details?.runtime) % 60
+								  } min`
+								: `Season ${details?.number_of_seasons} `}
 						</span>
 					</div>
 					<p className="genre">{details?.genres.map((i) => i.name + ' ')}</p>
-					<p className="overview">{details?.overview}</p>
+					<p className="overview">
+						{details?.overview ? details?.overview : 'No Overview'}
+					</p>
 				</div>
 				<div className="moreInfo">
 					<h3>

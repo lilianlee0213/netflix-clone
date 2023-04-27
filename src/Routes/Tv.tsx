@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {IGetMoviesResult, getPopularTV} from '../api';
+import {IGetResult, getPopularTV} from '../api';
 import {useQuery} from 'react-query';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useMatch, useNavigate} from 'react-router-dom';
@@ -34,7 +34,7 @@ const Overlay = styled(motion.div)`
 
 function Tv() {
 	const navigate = useNavigate();
-	const {data: popular, isLoading} = useQuery<IGetMoviesResult>(
+	const {data: popular, isLoading} = useQuery<IGetResult>(
 		['TVshows', 'popular'],
 		getPopularTV
 	);
@@ -45,17 +45,9 @@ function Tv() {
 		<Wrapper>
 			{isLoading ? <Loader>Loading...</Loader> : null}
 			<>
-				<Banner
-					mediaType="tv"
-					data={popular as IGetMoviesResult}
-					title="Popular"
-				/>
+				<Banner mediaType="tv" data={popular as IGetResult} title="Popular" />
 				<Slider>
-					<Slide
-						mediaType="tv"
-						data={popular as IGetMoviesResult}
-						title="Popular"
-					/>
+					<Slide mediaType="tv" data={popular as IGetResult} title="Popular" />
 				</Slider>
 
 				<AnimatePresence>

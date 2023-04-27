@@ -57,7 +57,9 @@ export default function Banner({mediaType, data}: ISlider) {
 	return (
 		<Wrapper $bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}>
 			<Title>
-				{data?.results[0].title ? data.results[0].title : data.results[0].name}
+				{data?.results[0].title
+					? data?.results[0].title
+					: data?.results[0].name}
 			</Title>
 			<BannerBtns>
 				<BannerBtn className="playBtn">

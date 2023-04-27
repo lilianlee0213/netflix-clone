@@ -1,5 +1,5 @@
 import {AnimatePresence, motion} from 'framer-motion';
-import {IGenre, IGetMoviesResult, getGenres} from '../api';
+import {IGenre, IGetResult, getGenres} from '../api';
 import styled from 'styled-components';
 import {useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
@@ -9,7 +9,7 @@ import {IconBtn} from '../commonstyles';
 
 export interface ISlider {
 	mediaType: string;
-	data: IGetMoviesResult;
+	data: IGetResult;
 	title?: string;
 }
 const Title = styled.h3`
