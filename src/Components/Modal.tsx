@@ -98,12 +98,13 @@ const Info = styled.div`
 	}
 `;
 interface IModal {
-	movieId: string;
+	mediaType: string;
+	id: string;
 	data?: IDetails;
 }
-export default function Modals({movieId}: IModal) {
-	const {data: details} = useQuery<IDetails>([movieId], () =>
-		getDetails(movieId)
+export default function Modals({mediaType, id}: IModal) {
+	const {data: details} = useQuery<IDetails>([id], () =>
+		getDetails(mediaType, id)
 	);
 	return (
 		<Modal>
@@ -114,7 +115,7 @@ export default function Modals({movieId}: IModal) {
 						: netflixLogoUrl
 				}
 			/>
-			<Title>{details?.title}</Title>
+			<Title>{details?.title ? details.title : details?.name}</Title>
 			<Buttons>
 				<Button>
 					<svg
@@ -139,7 +140,11 @@ export default function Modals({movieId}: IModal) {
 			<Info>
 				<div>
 					<div style={{marginBottom: '10px'}}>
-						<span className="date">{details?.release_date}</span>
+						<span className="date">
+							{details?.release_date
+								? details.release_date
+								: details?.last_air_date}
+						</span>
 						<span>
 							{Math.floor(Number(details?.runtime) / 60)}hr{' '}
 							{Number(details?.runtime) % 60}min

@@ -7,7 +7,8 @@ import {useState} from 'react';
 import {makeImagePath, netflixLogoUrl} from '../utils';
 import {IconBtn} from '../commonstyles';
 
-interface ISlider {
+export interface ISlider {
+	mediaType: string;
 	data: IGetMoviesResult;
 	title?: string;
 }
@@ -147,7 +148,7 @@ const infoVariants = {
 };
 
 const offset = 6;
-export default function Slide({data, title}: ISlider) {
+export default function Slide({mediaType, data, title}: ISlider) {
 	const navigate = useNavigate();
 	const {data: genre} = useQuery(['genres'], getGenres);
 	const [index, setIndex] = useState(0);
@@ -162,8 +163,8 @@ export default function Slide({data, title}: ISlider) {
 		}
 	};
 	const toggleLeaving = () => setLeaving((prev) => !prev);
-	const onBoxClicked = (movieId: number) => {
-		navigate(`/movies/${movieId}`);
+	const onBoxClicked = (id: number) => {
+		navigate(`/${mediaType}/${id}`);
 	};
 	return (
 		<>
