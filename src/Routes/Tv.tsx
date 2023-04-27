@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {IGetResult, getPopularTV} from '../api';
+import {IGetResult, getPopularTV, getTopRatedTV} from '../api';
 import {useQuery} from 'react-query';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useMatch, useNavigate} from 'react-router-dom';
@@ -34,20 +34,39 @@ const Overlay = styled(motion.div)`
 
 function Tv() {
 	const navigate = useNavigate();
-	const {data: popular, isLoading} = useQuery<IGetResult>(
+
+	const {data: popular} = useQuery<IGetResult>(
 		['TVshows', 'popular'],
 		getPopularTV
 	);
-	console.log(popular);
+	const {data: topRated, isLoading} = useQuery<IGetResult>(
+		['Tvshows', 'topRated'],
+		getTopRatedTV
+	);
 	const tvMatched = useMatch('/tv/:tvId');
 	const onOverlayClick = () => navigate('/tv');
 	return (
 		<Wrapper>
 			{isLoading ? <Loader>Loading...</Loader> : null}
 			<>
-				<Banner mediaType="tv" data={popular as IGetResult} title="Popular" />
+				<Banner
+					mediaType="tv"
+					data={topRated as IGetResult}
+					title="Top Rated"
+				/>
 				<Slider>
-					<Slide mediaType="tv" data={popular as IGetResult} title="Popular" />
+					<Slide
+						mediaType="tv"
+						data={popular as IGetResult}
+						title="Trending Now"
+					/>
+				</Slider>
+				<Slider>
+					<Slide
+						mediaType="tv"
+						data={topRated as IGetResult}
+						title="Top TV Shows"
+					/>
 				</Slider>
 
 				<AnimatePresence>
