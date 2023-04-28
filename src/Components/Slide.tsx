@@ -12,6 +12,9 @@ export interface ISlider {
 	data: IGetResult;
 	title?: string;
 }
+const Wrapper = styled.div`
+	margin-bottom: 230px;
+`;
 const Title = styled.h3`
 	margin-bottom: 15px;
 	padding-left: 60px;
@@ -25,7 +28,6 @@ const Row = styled(motion.div)`
 	gap: 10px;
 	width: 100%;
 	padding: 0 60px;
-	margin-bottom: 250px;
 `;
 // Modal
 const Box = styled(motion.div)<{$bgPhoto: string}>`
@@ -167,7 +169,7 @@ export default function Slide({mediaType, data, title}: ISlider) {
 		navigate(`/${mediaType}/${id}`);
 	};
 	return (
-		<>
+		<Wrapper>
 			<Title>{title}</Title>
 			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
 				<Row
@@ -244,6 +246,6 @@ export default function Slide({mediaType, data, title}: ISlider) {
 					whileHover={{scale: 1.3}}
 				/>
 			</NextBtn>
-		</>
+		</Wrapper>
 	);
 }

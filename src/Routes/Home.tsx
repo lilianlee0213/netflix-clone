@@ -21,7 +21,6 @@ const Loader = styled.div`
 const Slider = styled.div`
 	position: relative;
 	top: -120px;
-	margin-bottom: 220px;
 `;
 
 const Overlay = styled(motion.div)`
@@ -59,25 +58,23 @@ function Home() {
 					title="Now Playing"
 				/>
 				<Slider>
-					<Slide
-						mediaType="movie"
-						data={nowPlaying as IGetResult}
-						title="Now Playing"
-					/>
-				</Slider>
-				<Slider>
-					<Slide
-						mediaType="movie"
-						data={upcoming as IGetResult}
-						title="Upcoming"
-					/>
-				</Slider>
-				<Slider>
-					<Slide
-						mediaType="movie"
-						data={topRated as IGetResult}
-						title="Top Rated"
-					/>
+					<>
+						<Slide
+							mediaType="movie"
+							data={nowPlaying as IGetResult}
+							title="Now Playing"
+						/>
+						<Slide
+							mediaType="movie"
+							data={upcoming as IGetResult}
+							title="Upcoming"
+						/>
+						<Slide
+							mediaType="movie"
+							data={topRated as IGetResult}
+							title="Top Rated"
+						/>
+					</>
 				</Slider>
 				<AnimatePresence>
 					{movieMatched ? (

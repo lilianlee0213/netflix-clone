@@ -14,6 +14,8 @@ const Wrapper = styled.div<{$bgPhoto: string}>`
 			to bottom,
 			rgba(24, 24, 24, 0),
 			rgba(24, 24, 24, 0.2),
+			rgba(24, 24, 24, 0.5),
+			rgba(24, 24, 24, 0.7),
 			rgba(24, 24, 24, 0.9)
 		),
 		url(${(props) => props.$bgPhoto});

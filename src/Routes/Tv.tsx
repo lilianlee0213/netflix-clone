@@ -20,7 +20,6 @@ const Loader = styled.div`
 const Slider = styled.div`
 	position: relative;
 	top: -120px;
-	margin-bottom: 220px;
 `;
 
 const Overlay = styled(motion.div)`
@@ -55,20 +54,19 @@ function Tv() {
 					title="Top Rated"
 				/>
 				<Slider>
-					<Slide
-						mediaType="tv"
-						data={popular as IGetResult}
-						title="Trending Now"
-					/>
+					<>
+						<Slide
+							mediaType="tv"
+							data={popular as IGetResult}
+							title="Trending Now"
+						/>
+						<Slide
+							mediaType="tv"
+							data={topRated as IGetResult}
+							title="Top TV Shows"
+						/>
+					</>
 				</Slider>
-				<Slider>
-					<Slide
-						mediaType="tv"
-						data={topRated as IGetResult}
-						title="Top TV Shows"
-					/>
-				</Slider>
-
 				<AnimatePresence>
 					{tvMatched ? (
 						<>
