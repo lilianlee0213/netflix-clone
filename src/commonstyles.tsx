@@ -36,3 +36,14 @@ export const IconBtn = css`
 		vertical-align: middle;
 	}
 `;
+
+export const Bubble = css`
+	position: absolute;
+	background: ${(props) => props.theme.white.darker};
+	top: -35px;
+	border-radius: 0.4em;
+	color: ${(props) => props.theme.black.darker};
+	font-size: 12px;
+	padding: 8px;
+	font-weight: 700;
+`;

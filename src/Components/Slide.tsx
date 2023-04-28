@@ -5,7 +5,7 @@ import {useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {makeImagePath, netflixLogoUrl} from '../utils';
-import {IconBtn} from '../commonstyles';
+import {Bubble, IconBtn} from '../commonstyles';
 
 export interface ISlider {
 	mediaType: string;
@@ -79,6 +79,7 @@ const Info = styled(motion.div)`
 	}
 `;
 const Buttons = styled.div`
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -92,8 +93,21 @@ const Button = styled.button`
 			background-color: rgba(255, 255, 255, 0.8);
 		}
 	}
+	&.moreInfo {
+		:hover {
+			border-color: ${(props) => props.theme.green};
+			i {
+				color: ${(props) => props.theme.green};
+			}
+		}
+	}
 `;
-
+const HoverBubble = styled.div<{isHovered: Boolean}>`
+	${Bubble}
+	opacity: ${(props) => (props.isHovered ? 1 : 0)};
+	transition: opacity 0.2s ease-in-out;
+	right: -8px;
+`;
 const NextBtn = styled(motion.button)`
 	position: absolute;
 	background-color: transparent;
@@ -168,6 +182,7 @@ export default function Slide({mediaType, data, title}: ISlider) {
 	const onBoxClicked = (id: number) => {
 		navigate(`/${mediaType}/${id}`);
 	};
+	const [isHovered, setIsHovered] = useState(false);
 	return (
 		<Wrapper>
 			<Title>{title}</Title>
@@ -218,10 +233,17 @@ export default function Slide({mediaType, data, title}: ISlider) {
 											</Button>
 										</div>
 										<div>
-											<Button onClick={() => onBoxClicked(movie.id)}>
+											<Button
+												className="moreInfo"
+												onMouseEnter={() => setIsHovered(true)}
+												onMouseLeave={() => setIsHovered(false)}
+												onClick={() => onBoxClicked(movie.id)}>
 												<i className="fa-solid fa-arrow-down"></i>
 											</Button>
 										</div>
+										<HoverBubble isHovered={isHovered}>
+											Overview & Info
+										</HoverBubble>
 									</Buttons>
 									<h4>{movie.title ? movie.title : movie.name}</h4>
 									<h4>
