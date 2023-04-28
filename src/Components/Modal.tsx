@@ -17,9 +17,9 @@ const Modal = styled.div`
 	background-color: ${(props) => props.theme.black.lighter};
 	z-index: 3;
 	box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.5);
+	overflow-y: auto;
 `;
 const ModalImg = styled.div<{$bgPhoto: string}>`
-	position: relative;
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	width: 100%;
@@ -77,10 +77,9 @@ const Info = styled.div`
 	.overview {
 		font-size: 14px;
 		line-height: 2;
+		margin-bottom: 50px;
 	}
 	.moreInfo {
-		position: absolute;
-		bottom: 25px;
 		font-size: 12px;
 		line-height: 2;
 		h3 {
