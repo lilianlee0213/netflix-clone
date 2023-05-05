@@ -29,7 +29,6 @@ const Row = styled(motion.div)`
 	width: 100%;
 	padding: 0 60px;
 `;
-// Modal
 const Box = styled(motion.div)<{$bgPhoto: string}>`
 	height: 163px;
 	border-radius: 6px;
@@ -169,6 +168,7 @@ export default function Slide({mediaType, data, title}: ISlider) {
 	const {data: genre} = useQuery(['genres'], getGenres);
 	const [index, setIndex] = useState(0);
 	const [leaving, setLeaving] = useState(false);
+	const [isHovered, setIsHovered] = useState(false);
 	const moveNext = () => {
 		if (data) {
 			if (leaving) return;
@@ -179,10 +179,9 @@ export default function Slide({mediaType, data, title}: ISlider) {
 		}
 	};
 	const toggleLeaving = () => setLeaving((prev) => !prev);
-	const onBoxClicked = (id: number) => {
+	const onSlideClicked = (id: number) => {
 		navigate(`/${mediaType}/${id}`);
 	};
-	const [isHovered, setIsHovered] = useState(false);
 	return (
 		<Wrapper>
 			<Title>{title}</Title>
@@ -197,17 +196,17 @@ export default function Slide({mediaType, data, title}: ISlider) {
 					{data?.results
 						.slice(1)
 						.slice(offset * index, offset * index + offset)
-						.map((movie) => (
+						.map((media) => (
 							<Box
-								// layoutId={movie.id + ''}
-								key={movie.id}
+								// layoutId={media.id + ''}
+								key={media.id}
 								variants={boxVariants}
 								initial="normal"
 								whileHover="hover"
 								transition={{type: 'tween'}}
 								$bgPhoto={
-									movie.backdrop_path
-										? makeImagePath(movie.backdrop_path, 'w500')
+									media.backdrop_path
+										? makeImagePath(media.backdrop_path, 'w500')
 										: netflixLogoUrl
 								}>
 								<Info variants={infoVariants}>
@@ -235,9 +234,10 @@ export default function Slide({mediaType, data, title}: ISlider) {
 										<div>
 											<Button
 												className="moreInfo"
+												// fix with whilehover
 												onMouseEnter={() => setIsHovered(true)}
 												onMouseLeave={() => setIsHovered(false)}
-												onClick={() => onBoxClicked(movie.id)}>
+												onClick={() => onSlideClicked(media.id)}>
 												<i className="fa-solid fa-arrow-down"></i>
 											</Button>
 										</div>
@@ -245,10 +245,10 @@ export default function Slide({mediaType, data, title}: ISlider) {
 											Overview & Info
 										</HoverBubble>
 									</Buttons>
-									<h4>{movie.title ? movie.title : movie.name}</h4>
+									<h4>{media.title ? media.title : media.name}</h4>
 									<h4>
 										{genre?.genres.map((i: IGenre) =>
-											movie.genre_ids.slice(0, 3).includes(i.id) ? (
+											media.genre_ids.slice(0, 3).includes(i.id) ? (
 												<span key={i.id}>{i.name}</span>
 											) : null
 										)}

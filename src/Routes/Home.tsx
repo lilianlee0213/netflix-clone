@@ -17,7 +17,6 @@ const Loader = styled.div`
 	height: 200vh;
 `;
 
-// Slide
 const Slider = styled.div`
 	position: relative;
 	top: -120px;
