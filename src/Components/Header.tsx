@@ -5,38 +5,41 @@ import {
 	useMotionValueEvent,
 	useScroll,
 } from 'framer-motion';
-import {Link, useMatch, BrowserRouter} from 'react-router-dom';
+import {Link, useMatch} from 'react-router-dom';
 import {useState} from 'react';
 import {IScreen} from '../App';
 
-interface IScreenStyle {
-	isMobile: boolean;
-	isTablet: boolean;
-	isDesktop: boolean;
-}
-const Nav = styled(motion.nav)<IScreenStyle>`
+const Nav = styled(motion.nav)`
 	position: fixed;
 	top: 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: ${(props) =>
-		props.isDesktop ? '15px 60px' : props.isTablet ? '15px 30px' : '15px'};
+	padding: 15px 60px;
 	width: 100%;
 	font-size: 14px;
 	color: ${(props) => props.theme.white.darker};
 	z-index: 2;
+	&.mobile-nav {
+		padding: 15px;
+	}
+	&.tablet-nav {
+		padding: 15px 30px;
+	}
 `;
 const Col = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
 `;
-const Logo = styled.svg<IScreenStyle>`
+const Logo = styled.svg`
 	padding-top: 10px;
-	margin-right: ${(props) => (props.isDesktop ? '50px' : '40px')};
+	margin-right: 50px;
 	height: 100%;
 	fill: ${(props) => props.theme.red};
+	&.tablet-logo {
+		margin-right: 40px;
+	}
 `;
 
 const DesktopItems = styled.ul`
@@ -158,20 +161,16 @@ export default function Header({isMobile, isTablet, isDesktop}: IScreen) {
 	});
 	return (
 		<Nav
+			className={isMobile ? 'mobile-nav' : isTablet ? 'tablet-nav' : ''}
 			initial={{backgroundColor: 'rgba(24, 24, 24,0)'}}
-			animate={navAnimation}
-			isMobile={isMobile}
-			isTablet={isTablet}
-			isDesktop={isDesktop}>
+			animate={navAnimation}>
 			<Col>
 				<Link to="/">
 					{isMobile ? (
 						<MobileLogo>N</MobileLogo>
 					) : (
 						<Logo
-							isMobile={isMobile}
-							isTablet={isTablet}
-							isDesktop={isDesktop}
+							className={isTablet ? 'tablet-logo' : ''}
 							viewBox="0 0 111 30"
 							version="1.1"
 							xmlns="http://www.w3.org/2000/svg"

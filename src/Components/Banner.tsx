@@ -94,7 +94,6 @@ export default function Banner({
 	const onInfoClicked = (id: number) => {
 		navigate(`/${mediaType}/${id}`);
 	};
-	console.log(isTablet);
 	return (
 		<Wrapper
 			$bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}
