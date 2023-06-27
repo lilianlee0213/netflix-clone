@@ -17,9 +17,6 @@ export const PlayBtn = css`
 	}
 `;
 export const IconBtn = css`
-	margin-right: 5px;
-	width: 35px;
-	height: 35px;
 	vertical-align: middle;
 	border: 1px solid rgba(255, 255, 255, 0.5);
 	border-radius: 50%;
@@ -28,7 +25,6 @@ export const IconBtn = css`
 		border-color: white;
 	}
 	i {
-		font-size: 18px;
 		color: white;
 	}
 	svg {

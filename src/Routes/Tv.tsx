@@ -63,11 +63,17 @@ function Tv({isMobile, isTablet, isDesktop}: IScreen) {
 							mediaType="tv"
 							data={popular as IGetResult}
 							title="Trending Now"
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
 						/>
 						<Slide
 							mediaType="tv"
 							data={topRated as IGetResult}
 							title="Top TV Shows"
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
 						/>
 					</>
 				</Slider>

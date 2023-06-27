@@ -6,11 +6,15 @@ import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {makeImagePath, netflixLogoUrl} from '../utils';
 import {Bubble, IconBtn} from '../commonstyles';
+import {IScreen} from '../App';
 
 export interface ISlider {
 	mediaType: string;
 	data: IGetResult;
 	title?: string;
+}
+interface ISlideProps extends ISlider, IScreen {
+	// No additional props needed
 }
 const Wrapper = styled.div`
 	margin-bottom: 230px;
@@ -20,6 +24,14 @@ const Title = styled.h3`
 	padding-left: 60px;
 	font-size: 25px;
 	font-weight: 500;
+	&.mobile-title {
+		padding-left: 15px;
+		font-size: 20px;
+	}
+	&.tablet-title {
+		padding-left: 30px;
+		font-size: 22px;
+	}
 `;
 const Row = styled(motion.div)`
 	position: absolute;
@@ -28,6 +40,14 @@ const Row = styled(motion.div)`
 	gap: 10px;
 	width: 100%;
 	padding: 0 60px;
+	&.mobile-row {
+		grid-template-columns: repeat(3, 1fr);
+		padding: 0 15px;
+	}
+	&.tablet-row {
+		padding: 0 30px;
+		grid-template-columns: repeat(4, 1fr);
+	}
 `;
 const Box = styled(motion.div)<{$bgPhoto: string}>`
 	height: 163px;
@@ -42,6 +62,11 @@ const Box = styled(motion.div)<{$bgPhoto: string}>`
 	}
 	&:last-child {
 		transform-origin: center right;
+	}
+	&.mobile-box {
+		min-width: 140px;
+		height: 200px;
+		width: 100%;
 	}
 `;
 const Info = styled(motion.div)`
@@ -76,6 +101,24 @@ const Info = styled(motion.div)`
 			}
 		}
 	}
+	&.mobile-tablet-info {
+		padding: 10px;
+		white-space: nowrap;
+		h4 {
+			overflow: hidden;
+			&:first-of-type {
+				font-size: 12px;
+				margin-bottom: 4px;
+			}
+			&:last-of-type {
+				font-size: 8px;
+				line-height: 0.5;
+			}
+		}
+		&:after {
+			display: none;
+		}
+	}
 `;
 const Buttons = styled.div`
 	position: relative;
@@ -86,6 +129,9 @@ const Buttons = styled.div`
 `;
 const Button = styled.button`
 	${IconBtn}
+	margin-right: 5px;
+	width: 35px;
+	height: 35px;
 	&.playIcon {
 		background-color: white;
 		:hover {
@@ -98,6 +144,20 @@ const Button = styled.button`
 			i {
 				color: ${(props) => props.theme.green};
 			}
+		}
+	}
+	i {
+		font-size: 18px;
+	}
+	&.mobile-tablet-btn {
+		width: 25px;
+		height: 25px;
+		i {
+			font-size: 12px;
+		}
+		svg {
+			width: 14px;
+			height: 14px;
 		}
 	}
 `;
@@ -147,6 +207,38 @@ const boxVariants = {
 		},
 	},
 };
+const mobileBoxVariants = {
+	normal: {
+		scale: 1,
+		zIndex: 0,
+	},
+	hover: {
+		zIndex: 3,
+		y: -20,
+		scale: 1.1,
+		transition: {
+			duration: 0.2,
+			delay: 0.3,
+			type: 'tween',
+		},
+	},
+};
+const tabletBoxVariants = {
+	normal: {
+		scale: 1,
+		zIndex: 0,
+	},
+	hover: {
+		zIndex: 3,
+		y: -50,
+		scale: 1.2,
+		transition: {
+			duration: 0.2,
+			delay: 0.3,
+			type: 'tween',
+		},
+	},
+};
 const infoVariants = {
 	normal: {
 		display: 'none',
@@ -162,13 +254,21 @@ const infoVariants = {
 	},
 };
 
-const offset = 6;
-export default function Slide({mediaType, data, title}: ISlider) {
+export default function Slide({
+	mediaType,
+	data,
+	title,
+	isMobile,
+	isTablet,
+	isDesktop,
+}: ISlideProps) {
 	const navigate = useNavigate();
 	const {data: genre} = useQuery(['genres'], getGenres);
 	const [index, setIndex] = useState(0);
 	const [leaving, setLeaving] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
+	const offset = isMobile ? 3 : isTablet ? 4 : 6;
+
 	const moveNext = () => {
 		if (data) {
 			if (leaving) return;
@@ -184,9 +284,13 @@ export default function Slide({mediaType, data, title}: ISlider) {
 	};
 	return (
 		<Wrapper>
-			<Title>{title}</Title>
+			<Title
+				className={isMobile ? 'mobile-title' : isTablet ? 'tablet-title' : ''}>
+				{title}
+			</Title>
 			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
 				<Row
+					className={isMobile ? 'mobile-row' : isTablet ? 'tablet-row' : ''}
 					key={index}
 					variants={rowVariants}
 					initial="hidden"
@@ -198,9 +302,15 @@ export default function Slide({mediaType, data, title}: ISlider) {
 						.slice(offset * index, offset * index + offset)
 						.map((media) => (
 							<Box
-								// layoutId={media.id + ''}
+								className={isMobile ? 'mobile-box' : ''}
 								key={media.id}
-								variants={boxVariants}
+								variants={
+									isMobile
+										? mobileBoxVariants
+										: isTablet
+										? tabletBoxVariants
+										: boxVariants
+								}
 								initial="normal"
 								whileHover="hover"
 								transition={{type: 'tween'}}
@@ -209,10 +319,15 @@ export default function Slide({mediaType, data, title}: ISlider) {
 										? makeImagePath(media.backdrop_path, 'w500')
 										: netflixLogoUrl
 								}>
-								<Info variants={infoVariants}>
+								<Info
+									variants={infoVariants}
+									className={!isDesktop ? 'mobile-tablet-info' : ''}>
 									<Buttons>
 										<div>
-											<Button className="playIcon">
+											<Button
+												className={`playIcon ${
+													!isDesktop ? 'mobile-tablet-btn' : ''
+												}`}>
 												<svg
 													width="19"
 													height="19"
@@ -224,17 +339,15 @@ export default function Slide({mediaType, data, title}: ISlider) {
 														fill="currentColor"></path>
 												</svg>
 											</Button>
-											<Button>
+											<Button className={!isDesktop ? 'mobile-tablet-btn' : ''}>
 												<i className="fa-solid fa-plus"></i>
-											</Button>
-											<Button>
-												<i className="fa-regular fa-thumbs-up"></i>
 											</Button>
 										</div>
 										<div>
 											<Button
-												className="moreInfo"
-												// fix with whilehover
+												className={`moreInfo ${
+													!isDesktop ? 'mobile-tablet-btn' : ''
+												}`}
 												onMouseEnter={() => setIsHovered(true)}
 												onMouseLeave={() => setIsHovered(false)}
 												onClick={() => onSlideClicked(media.id)}>

@@ -66,16 +66,25 @@ function Home({isMobile, isTablet, isDesktop}: IScreen) {
 							mediaType="movie"
 							data={nowPlaying as IGetResult}
 							title="Now Playing"
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
 						/>
 						<Slide
 							mediaType="movie"
 							data={upcoming as IGetResult}
 							title="Upcoming"
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
 						/>
 						<Slide
 							mediaType="movie"
 							data={topRated as IGetResult}
 							title="Top Rated"
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
 						/>
 					</>
 				</Slider>
