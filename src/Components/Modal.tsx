@@ -3,21 +3,35 @@ import styled from 'styled-components';
 import {IDetails, getDetails} from '../api';
 import {makeImagePath, netflixLogoUrl} from '../utils';
 import {IconBtn, PlayBtn} from '../commonstyles';
-import {theme} from '../theme';
+import {IScreen} from '../App';
 
+interface IModalProps extends IModal, IScreen {
+	// No additional props needed
+}
+interface IModal {
+	mediaType: string;
+	id: string;
+	data?: IDetails;
+}
 const Modal = styled.div`
 	position: fixed;
-	width: 45vw;
-	height: 90vh;
-	top: 40px;
-	left: 0;
-	margin: 0 auto;
-	right: 0;
+	width: 80vw;
+	max-width: 700px;
+	height: 80vh;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	border-radius: 6px;
 	background-color: ${(props) => props.theme.black.lighter};
 	z-index: 3;
 	box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.5);
 	overflow-y: auto;
+	&.mobile-modal {
+		height: 55vh;
+	}
+	&.tablet-modal {
+		height: 65vh;
+	}
 `;
 const ModalImg = styled.div<{$bgPhoto: string}>`
 	border-top-right-radius: 6px;
@@ -48,6 +62,14 @@ const Title = styled.h2`
 	line-height: 1.2em;
 	letter-spacing: 5px;
 	margin-bottom: 12px;
+	&.mobile-title {
+		bottom: 300px;
+		font-size: 30px;
+	}
+	&.tablet-title {
+		top: 20px;
+		font-size: 5vw;
+	}
 `;
 const Buttons = styled.div`
 	position: absolute;
@@ -56,12 +78,25 @@ const Buttons = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 20px;
+	&.mobile-btns {
+		bottom: 250px;
+	}
+	&.tablet-btns {
+		bottom: 300px;
+	}
 `;
 const Button = styled.button`
 	${PlayBtn}
+	padding: 12px 30px;
+	&.mobile-tablet-btn {
+		font-size: 16px;
+		padding: 8px 20px;
+	}
 `;
 const Icon = styled.button`
 	${IconBtn}
+	width: 35px;
+	height: 35px;
 	scale: 1.4;
 `;
 const Info = styled.div`
@@ -96,17 +131,20 @@ const Info = styled.div`
 		}
 	}
 `;
-interface IModal {
-	mediaType: string;
-	id: string;
-	data?: IDetails;
-}
-export default function Modals({mediaType, id}: IModal) {
+
+export default function Modals({
+	mediaType,
+	id,
+	isMobile,
+	isTablet,
+	isDesktop,
+}: IModalProps) {
 	const {data: details} = useQuery<IDetails>([id], () =>
 		getDetails(mediaType, id)
 	);
 	return (
-		<Modal>
+		<Modal
+			className={isMobile ? 'mobile-modal' : isTablet ? 'tablet-modal' : ''}>
 			<ModalImg
 				$bgPhoto={
 					details?.backdrop_path
@@ -114,9 +152,13 @@ export default function Modals({mediaType, id}: IModal) {
 						: netflixLogoUrl
 				}
 			/>
-			<Title>{details?.title ? details?.title : details?.name}</Title>
-			<Buttons>
-				<Button>
+			<Title
+				className={isMobile ? 'mobile-title' : isTablet ? 'tablet-title' : ''}>
+				{details?.title ? details?.title : details?.name}
+			</Title>
+			<Buttons
+				className={isMobile ? 'mobile-btns' : isTablet ? 'tablet-btns' : ''}>
+				<Button className={!isDesktop ? 'mobile-tablet-btn' : ''}>
 					<svg
 						width="26"
 						height="26"
@@ -153,7 +195,9 @@ export default function Modals({mediaType, id}: IModal) {
 						</span>
 					</div>
 					<p className="genre">{details?.genres.map((i) => i.name + ' ')}</p>
-					<p className="overview">
+					<p
+						className="overview"
+						style={{display: isMobile ? 'none' : 'block'}}>
 						{details?.overview ? details?.overview : 'No Overview'}
 					</p>
 				</div>

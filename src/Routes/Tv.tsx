@@ -81,7 +81,12 @@ function Tv({isMobile, isTablet, isDesktop}: IScreen) {
 					{tvMatched ? (
 						<>
 							<Overlay onClick={onOverlayClick} animate={{opacity: 1}} />
-							<Modals mediaType="tv" id={tvMatched.params.tvId + ''}></Modals>
+							<Modals
+								mediaType="tv"
+								id={tvMatched.params.tvId + ''}
+								isMobile={isMobile}
+								isTablet={isTablet}
+								isDesktop={isDesktop}></Modals>
 						</>
 					) : null}
 				</AnimatePresence>

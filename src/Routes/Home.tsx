@@ -94,7 +94,10 @@ function Home({isMobile, isTablet, isDesktop}: IScreen) {
 							<Overlay onClick={onOverlayClick} animate={{opacity: 1}} />
 							<Modals
 								mediaType="movie"
-								id={movieMatched.params.movieId + ''}></Modals>
+								id={movieMatched.params.movieId + ''}
+								isMobile={isMobile}
+								isTablet={isTablet}
+								isDesktop={isDesktop}></Modals>
 						</>
 					) : null}
 				</AnimatePresence>
