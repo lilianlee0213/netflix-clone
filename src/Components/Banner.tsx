@@ -3,7 +3,11 @@ import {PlayBtn} from '../commonstyles';
 import {makeImagePath} from '../utils';
 import {ISlider} from './Slide';
 import {useNavigate} from 'react-router-dom';
+import {IScreen} from '../App';
 
+interface IBannerProps extends ISlider, IScreen {
+	// No additional props needed
+}
 const Wrapper = styled.div<{$bgPhoto: string}>`
 	display: flex;
 	flex-direction: column;
@@ -20,6 +24,9 @@ const Wrapper = styled.div<{$bgPhoto: string}>`
 		),
 		url(${(props) => props.$bgPhoto});
 	background-size: cover;
+	&.mobile-wrapper {
+		padding: 100px 15px 0;
+	}
 `;
 const Title = styled.h2`
 	margin-bottom: 20px;
@@ -51,7 +58,13 @@ const Overview = styled.p`
 	font-size: 20px;
 	width: 34%;
 `;
-export default function Banner({mediaType, data}: ISlider) {
+export default function Banner({
+	mediaType,
+	data,
+	isMobile,
+	isTablet,
+	isDesktop,
+}: IBannerProps) {
 	const navigate = useNavigate();
 	const onInfoClicked = (id: number) => {
 		navigate(`/${mediaType}/${id}`);

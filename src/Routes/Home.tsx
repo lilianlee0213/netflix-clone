@@ -6,6 +6,7 @@ import {useMatch, useNavigate} from 'react-router-dom';
 import Slide from '../Components/Slide';
 import Modals from '../Components/Modal';
 import Banner from '../Components/Banner';
+import {IScreen} from '../App';
 
 const Wrapper = styled.div`
 	background-color: ${(props) => props.theme.black.darker};
@@ -31,7 +32,7 @@ const Overlay = styled(motion.div)`
 	opacity: 0;
 `;
 
-function Home() {
+function Home({isMobile, isTablet, isDesktop}: IScreen) {
 	const {data: nowPlaying, isLoading} = useQuery<IGetResult>(
 		['movies', 'nowPlaying'],
 		getNowPlaying
@@ -55,6 +56,9 @@ function Home() {
 					mediaType="movie"
 					data={nowPlaying as IGetResult}
 					title="Now Playing"
+					isMobile={isMobile}
+					isTablet={isTablet}
+					isDesktop={isDesktop}
 				/>
 				<Slider>
 					<>

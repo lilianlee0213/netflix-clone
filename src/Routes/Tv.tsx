@@ -6,6 +6,7 @@ import {useMatch, useNavigate} from 'react-router-dom';
 import Modals from '../Components/Modal';
 import Slide from '../Components/Slide';
 import Banner from '../Components/Banner';
+import {IScreen} from '../App';
 
 const Wrapper = styled.div`
 	background-color: ${(props) => props.theme.black.darker};
@@ -31,7 +32,7 @@ const Overlay = styled(motion.div)`
 	opacity: 0;
 `;
 
-function Tv() {
+function Tv({isMobile, isTablet, isDesktop}: IScreen) {
 	const navigate = useNavigate();
 
 	const {data: popular} = useQuery<IGetResult>(
@@ -52,6 +53,9 @@ function Tv() {
 					mediaType="tv"
 					data={topRated as IGetResult}
 					title="Top Rated"
+					isMobile={isMobile}
+					isTablet={isTablet}
+					isDesktop={isDesktop}
 				/>
 				<Slider>
 					<>

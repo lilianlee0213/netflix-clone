@@ -38,10 +38,34 @@ function App() {
 		<BrowserRouter>
 			<Header isMobile={isMobile} isTablet={isTablet} isDesktop={isDesktop} />
 			<Routes>
-				<Route path="/" element={<Home />}></Route>
-				<Route path="movie/:id" element={<Home />}></Route>
-				<Route path="tv" element={<Tv />}></Route>
-				<Route path="tv/:id" element={<Tv />}></Route>
+				<Route
+					path="/"
+					element={
+						<Home
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
+						/>
+					}></Route>
+				<Route
+					path="movie/:id"
+					element={
+						<Home
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
+						/>
+					}></Route>
+				<Route
+					path="tv"
+					element={
+						<Tv isMobile={isMobile} isTablet={isTablet} isDesktop={isDesktop} />
+					}></Route>
+				<Route
+					path="tv/:id"
+					element={
+						<Tv isMobile={isMobile} isTablet={isTablet} isDesktop={isDesktop} />
+					}></Route>
 				<Route path="search" element={<Search />}></Route>
 			</Routes>
 			<Footer />
