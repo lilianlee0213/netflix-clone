@@ -5,9 +5,10 @@ import {
 	useMotionValueEvent,
 	useScroll,
 } from 'framer-motion';
-import {Link, useMatch} from 'react-router-dom';
+import {Link, useMatch, useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {IScreen} from '../App';
+import {useForm} from 'react-hook-form';
 
 const Nav = styled(motion.nav)`
 	position: fixed;
@@ -68,7 +69,7 @@ const DesktopItem = styled.li`
 	}
 `;
 
-const Search = styled.div`
+const Search = styled.form`
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
@@ -136,12 +137,14 @@ const BrowserItem = styled(motion.li)`
 		opacity: 1;
 	}
 `;
+interface IForm {
+	keyword: string;
+}
+
 export default function Header({isMobile, isTablet, isDesktop}: IScreen) {
 	const homeMatch = useMatch('/');
 	const tvMatch = useMatch('tv');
-	// Scroll Event
-	const {scrollY} = useScroll();
-	const navAnimation = useAnimation();
+	const navigate = useNavigate();
 	//Link(only isMobile and isTablet)
 	const [browserOpen, setBrowserOpen] = useState(false);
 	const toggleBrowserBtn = () => {
@@ -150,6 +153,14 @@ export default function Header({isMobile, isTablet, isDesktop}: IScreen) {
 	// Search
 	const [searchOpen, setSearchOpen] = useState(false);
 	const toggleSearch = () => setSearchOpen((prev) => !prev);
+	const {register, handleSubmit} = useForm<IForm>();
+	const onValid = (data: IForm) => {
+		console.log(data);
+		navigate(`/search?keyword=${data.keyword}`);
+	};
+	// Scroll Event
+	const {scrollY} = useScroll();
+	const navAnimation = useAnimation();
 	useMotionValueEvent(scrollY, 'change', (latest) => {
 		if (latest > 10) {
 			navAnimation.start({
@@ -217,8 +228,9 @@ export default function Header({isMobile, isTablet, isDesktop}: IScreen) {
 				)}
 			</Col>
 			<Col>
-				<Search>
+				<Search onSubmit={handleSubmit(onValid)}>
 					<Input
+						{...register('keyword', {required: true, minLength: 2})}
 						className={isMobile ? 'mobile-input' : ''}
 						initial={{scaleX: 0}}
 						animate={{scaleX: searchOpen ? 1 : 0}}
