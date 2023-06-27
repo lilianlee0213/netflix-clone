@@ -4,7 +4,6 @@ export const PlayBtn = css`
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	padding: 12px 30px;
 	border-radius: 6px;
 	font-size: 22px;
 	font-weight: 500;

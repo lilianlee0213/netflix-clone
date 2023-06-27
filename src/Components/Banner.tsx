@@ -24,16 +24,28 @@ const Wrapper = styled.div<{$bgPhoto: string}>`
 		),
 		url(${(props) => props.$bgPhoto});
 	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
 	&.mobile-wrapper {
-		padding: 100px 15px 0;
+		padding: 30px 15px 0;
+	}
+	&.tablet-wrapper {
+		padding: 50px 30px 0;
 	}
 `;
 const Title = styled.h2`
 	margin-bottom: 20px;
-	width: 40%;
+	width: 100%;
+	max-width: 500px;
 	font-family: 'Bangers', cursive;
 	font-size: 100px;
 	letter-spacing: 5px;
+	&.mobile-title {
+		font-size: 60px;
+	}
+	&.tablet-title {
+		font-size: 80px;
+	}
 `;
 const BannerBtns = styled.div`
 	display: flex;
@@ -42,6 +54,7 @@ const BannerBtns = styled.div`
 `;
 const BannerBtn = styled.button`
 	${PlayBtn}
+	padding: 12px 30px;
 	i {
 		font-weight: 900;
 		font-size: 32px;
@@ -53,10 +66,22 @@ const BannerBtn = styled.button`
 			background-color: rgba(109, 109, 110, 0.4);
 		}
 	}
+	&.mobile-banner-btn {
+		font-size: 16px;
+		padding: 8px 20px;
+	}
 `;
 const Overview = styled.p`
 	font-size: 20px;
-	width: 34%;
+	width: 80%;
+	max-width: 800px;
+	line-height: 1.5;
+	&.mobile-overview {
+		font-size: 14px;
+	}
+	&.tablet-overview {
+		font-size: 16px;
+	}
 `;
 export default function Banner({
 	mediaType,
@@ -69,15 +94,21 @@ export default function Banner({
 	const onInfoClicked = (id: number) => {
 		navigate(`/${mediaType}/${id}`);
 	};
+	console.log(isTablet);
 	return (
-		<Wrapper $bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}>
-			<Title>
+		<Wrapper
+			$bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}
+			className={
+				isMobile ? 'mobile-wrapper' : isTablet ? 'tablet-wrapper' : ''
+			}>
+			<Title
+				className={isMobile ? 'mobile-title' : isTablet ? 'tablet-title' : ''}>
 				{data?.results[0].title
 					? data?.results[0].title
 					: data?.results[0].name}
 			</Title>
 			<BannerBtns>
-				<BannerBtn className="playBtn">
+				<BannerBtn className={`playBtn ${isMobile ? 'mobile-banner-btn' : ''}`}>
 					<svg
 						width="26"
 						height="26"
@@ -91,7 +122,7 @@ export default function Banner({
 					Play
 				</BannerBtn>
 				<BannerBtn
-					className="lightBtn"
+					className={`lightBtn ${isMobile ? 'mobile-banner-btn' : ''}`}
 					onClick={() => onInfoClicked(data?.results[0].id as number)}>
 					<svg
 						width="24"
@@ -108,7 +139,12 @@ export default function Banner({
 					More Info
 				</BannerBtn>
 			</BannerBtns>
-			<Overview>{data?.results[0].overview}</Overview>
+			<Overview
+				className={
+					isMobile ? 'mobile-overview' : isTablet ? 'tablet-overview' : ''
+				}>
+				{data?.results[0].overview}
+			</Overview>
 		</Wrapper>
 	);
 }
