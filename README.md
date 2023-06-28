@@ -10,6 +10,6 @@ Nomflix is a clone website of Netflix, providing a similar user experience and f
 - Categorized content based on "Now Playing", "Popular", and "Top Rated" sections.
 - Engaging animations and interactive features implemented using Framer Motion.
 
-##Live Site
+## Live Site
 
-You can access the live site [here](https://lilianlee0213.github.io/netflix-clone/).
+-You can access the live site [here](https://lilianlee0213.github.io/netflix-clone/).
