@@ -180,7 +180,6 @@ export default function Modals({
 					</Icon>
 				</Buttons>
 			</ModalTopWrapper>
-
 			<Info>
 				<div>
 					<div style={{marginBottom: '10px'}}>
