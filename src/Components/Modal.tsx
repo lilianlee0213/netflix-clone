@@ -33,11 +33,16 @@ const Modal = styled.div`
 		height: 65vh;
 	}
 `;
+const ModalTopWrapper = styled.div`
+	position: relative;
+	width: 100%;
+	height: 55%;
+`;
 const ModalImg = styled.div<{$bgPhoto: string}>`
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	width: 100%;
-	height: 55%;
+	height: 100%;
 	background-position: center center;
 	background-size: cover;
 	background-image: linear-gradient(
@@ -54,36 +59,30 @@ const ModalImg = styled.div<{$bgPhoto: string}>`
 
 const Title = styled.h2`
 	position: absolute;
-	bottom: 480px;
-	left: 30px;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	margin-left: 20px;
 	max-width: 87%;
 	font-family: 'Bangers', cursive;
 	font-size: 40px;
-	line-height: 1.2em;
 	letter-spacing: 5px;
-	margin-bottom: 12px;
 	&.mobile-title {
-		bottom: 300px;
 		font-size: 30px;
 	}
 	&.tablet-title {
-		top: 100px;
 		font-size: 5vw;
 	}
 `;
 const Buttons = styled.div`
 	position: absolute;
-	left: 30px;
-	bottom: 380px;
+	left: 0;
+	bottom: 0;
 	display: flex;
 	align-items: center;
 	gap: 20px;
-	&.mobile-btns {
-		bottom: 250px;
-	}
-	&.tablet-btns {
-		bottom: 300px;
-	}
+	margin-left: 20px;
+	margin-bottom: 20px;
 `;
 const Button = styled.button`
 	${PlayBtn}
@@ -145,39 +144,43 @@ export default function Modals({
 	return (
 		<Modal
 			className={isMobile ? 'mobile-modal' : isTablet ? 'tablet-modal' : ''}>
-			<ModalImg
-				$bgPhoto={
-					details?.backdrop_path
-						? makeImagePath(details?.backdrop_path + '')
-						: netflixLogoUrl
-				}
-			/>
-			<Title
-				className={isMobile ? 'mobile-title' : isTablet ? 'tablet-title' : ''}>
-				{details?.title ? details?.title : details?.name}
-			</Title>
-			<Buttons
-				className={isMobile ? 'mobile-btns' : isTablet ? 'tablet-btns' : ''}>
-				<Button className={!isDesktop ? 'mobile-tablet-btn' : ''}>
-					<svg
-						width="26"
-						height="26"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M4 2.69127C4 1.93067 4.81547 1.44851 5.48192 1.81506L22.4069 11.1238C23.0977 11.5037 23.0977 12.4963 22.4069 12.8762L5.48192 22.1849C4.81546 22.5515 4 22.0693 4 21.3087V2.69127Z"
-							fill="currentColor"></path>
-					</svg>
-					Play
-				</Button>
-				<Icon>
-					<i className="fa-solid fa-plus"></i>
-				</Icon>
-				<Icon>
-					<i className="fa-regular fa-thumbs-up"></i>
-				</Icon>
-			</Buttons>
+			<ModalTopWrapper>
+				<ModalImg
+					$bgPhoto={
+						details?.backdrop_path
+							? makeImagePath(details?.backdrop_path + '')
+							: netflixLogoUrl
+					}
+				/>
+				<Title
+					className={
+						isMobile ? 'mobile-title' : isTablet ? 'tablet-title' : ''
+					}>
+					{details?.title ? details?.title : details?.name}
+				</Title>
+				<Buttons>
+					<Button className={!isDesktop ? 'mobile-tablet-btn' : ''}>
+						<svg
+							width="26"
+							height="26"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M4 2.69127C4 1.93067 4.81547 1.44851 5.48192 1.81506L22.4069 11.1238C23.0977 11.5037 23.0977 12.4963 22.4069 12.8762L5.48192 22.1849C4.81546 22.5515 4 22.0693 4 21.3087V2.69127Z"
+								fill="currentColor"></path>
+						</svg>
+						Play
+					</Button>
+					<Icon>
+						<i className="fa-solid fa-plus"></i>
+					</Icon>
+					<Icon>
+						<i className="fa-regular fa-thumbs-up"></i>
+					</Icon>
+				</Buttons>
+			</ModalTopWrapper>
+
 			<Info>
 				<div>
 					<div style={{marginBottom: '10px'}}>
