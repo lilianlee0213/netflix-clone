@@ -130,8 +130,9 @@ const Buttons = styled.div`
 const Button = styled.button`
 	${IconBtn}
 	margin-right: 5px;
-	width: 35px;
-	height: 35px;
+	width: 2.8vw;
+	aspect-ratio: 1;
+	max-width: 35px;
 	&.playIcon {
 		background-color: white;
 		:hover {
