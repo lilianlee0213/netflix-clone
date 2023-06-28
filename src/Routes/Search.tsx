@@ -5,7 +5,12 @@ import Slide from '../Components/Slide';
 import {IScreen} from '../App';
 import styled from 'styled-components';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	height: 100vh;
+`;
+const Slider = styled.div`
+	margin-top: 200px;
+`;
 function Search({isMobile, isTablet, isDesktop}: IScreen) {
 	const location = useLocation();
 	const keyword = new URLSearchParams(location.search).get('keyword');
@@ -20,23 +25,25 @@ function Search({isMobile, isTablet, isDesktop}: IScreen) {
 
 	return (
 		<Wrapper>
-			<Slide
-				mediaType="movie"
-				title={`Movie results for: ${keyword}`}
-				data={movieData as IGetResult}
-				isMobile={isMobile}
-				isTablet={isTablet}
-				isDesktop={isDesktop}
-			/>
+			<Slider>
+				<Slide
+					mediaType="movie"
+					title={`Movie results for: ${keyword}`}
+					data={movieData as IGetResult}
+					isMobile={isMobile}
+					isTablet={isTablet}
+					isDesktop={isDesktop}
+				/>
 
-			<Slide
-				mediaType="tv"
-				title={`TV results for: ${keyword}`}
-				data={tvData as IGetResult}
-				isMobile={isMobile}
-				isTablet={isTablet}
-				isDesktop={isDesktop}
-			/>
+				<Slide
+					mediaType="tv"
+					title={`TV results for: ${keyword}`}
+					data={tvData as IGetResult}
+					isMobile={isMobile}
+					isTablet={isTablet}
+					isDesktop={isDesktop}
+				/>
+			</Slider>
 		</Wrapper>
 	);
 }
