@@ -66,7 +66,15 @@ function App() {
 					element={
 						<Tv isMobile={isMobile} isTablet={isTablet} isDesktop={isDesktop} />
 					}></Route>
-				<Route path="search" element={<Search />}></Route>
+				<Route
+					path="search"
+					element={
+						<Search
+							isMobile={isMobile}
+							isTablet={isTablet}
+							isDesktop={isDesktop}
+						/>
+					}></Route>
 			</Routes>
 			<Footer />
 		</BrowserRouter>

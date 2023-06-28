@@ -137,7 +137,7 @@ const BrowserItem = styled(motion.li)`
 		opacity: 1;
 	}
 `;
-interface IForm {
+export interface IForm {
 	keyword: string;
 }
 
