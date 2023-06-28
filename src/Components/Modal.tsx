@@ -56,9 +56,9 @@ const Title = styled.h2`
 	position: absolute;
 	bottom: 480px;
 	left: 30px;
-	max-width: 60%;
+	max-width: 87%;
 	font-family: 'Bangers', cursive;
-	font-size: 60px;
+	font-size: 40px;
 	line-height: 1.2em;
 	letter-spacing: 5px;
 	margin-bottom: 12px;
@@ -67,14 +67,14 @@ const Title = styled.h2`
 		font-size: 30px;
 	}
 	&.tablet-title {
-		top: 20px;
+		top: 100px;
 		font-size: 5vw;
 	}
 `;
 const Buttons = styled.div`
 	position: absolute;
 	left: 30px;
-	bottom: 430px;
+	bottom: 380px;
 	display: flex;
 	align-items: center;
 	gap: 20px;
@@ -95,8 +95,8 @@ const Button = styled.button`
 `;
 const Icon = styled.button`
 	${IconBtn}
-	width: 35px;
-	height: 35px;
+	width: 30px;
+	height: 30px;
 	scale: 1.4;
 `;
 const Info = styled.div`
