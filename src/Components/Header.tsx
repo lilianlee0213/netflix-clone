@@ -155,7 +155,6 @@ export default function Header({isMobile, isTablet, isDesktop}: IScreen) {
 	const toggleSearch = () => setSearchOpen((prev) => !prev);
 	const {register, handleSubmit} = useForm<IForm>();
 	const onValid = (data: IForm) => {
-		console.log(data);
 		navigate(`/search?keyword=${data.keyword}`);
 	};
 	// Scroll Event
