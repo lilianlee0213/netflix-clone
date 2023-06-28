@@ -67,6 +67,7 @@ const Box = styled(motion.div)<{$bgPhoto: string}>`
 		min-width: 140px;
 		height: 200px;
 		width: 100%;
+		overflow-y: hidden;
 	}
 `;
 const Info = styled(motion.div)`
@@ -80,6 +81,8 @@ const Info = styled(motion.div)`
 	box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
 	opacity: 0;
 	h4 {
+		overflow-x: hidden;
+		white-space: nowrap;
 		&:first-of-type {
 			font-size: 14px;
 			margin-bottom: 5px;
